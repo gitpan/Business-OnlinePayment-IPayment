@@ -1,0 +1,6 @@
+.git
+garbage/*
+ignore.txt
+Makefile.old
+README.bak
+lib/Business/OnlinePayment/IPaymentDoc.pod
