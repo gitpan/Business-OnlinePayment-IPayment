@@ -27,11 +27,11 @@ Business::OnlinePayment::IPayment - Checkout via Ipayment Silent Mode
 
 =head1 VERSION
 
-Version 0.05
+Version 0.06
 
 =cut
 
-our $VERSION = '0.05';
+our $VERSION = '0.06';
 
 =head1 DESCRIPTION
 
@@ -672,10 +672,10 @@ Success:
   'trxuser_id' => '99998',             'trxuser_id' => '99999',
   'trx_remoteip_country' => 'DE'       'trx_remoteip_country' => 'DE'
 
-Returns a Business::OnlinePayment::IPayment::Response object, so you
+Returns a L<Business::OnlinePayment::IPayment::Response> object, so you
 can call ->is_success on it.
 
-This is just a shortcuts for 
+This is just a shortcut for
 
   Business::OnlinePayment::IPayment::Response->new(%params);
 
@@ -760,6 +760,9 @@ sub country {
     }
 }
 
+=head1 TESTING
+
+Test credit card numbers can be found here: L<https://ipayment.de/technik/cc_testnumbers.php4>.
 
 =head1 AUTHOR
 
@@ -811,7 +814,7 @@ code, ideas and support.
 
 =head1 LICENSE AND COPYRIGHT
 
-Copyright 2013 Marco Pessotto.
+Copyright 2013-2014 Marco Pessotto.
 
 This program is free software; you can redistribute it and/or modify it
 under the terms of the the Artistic License (2.0). You may obtain a

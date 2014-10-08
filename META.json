@@ -4,7 +4,7 @@
       "Marco Pessotto <melmothx@gmail.com>"
    ],
    "dynamic_config" : 1,
-   "generated_by" : "ExtUtils::MakeMaker version 6.6302, CPAN::Meta::Converter version 2.120630",
+   "generated_by" : "ExtUtils::MakeMaker version 6.98, CPAN::Meta::Converter version 2.142690",
    "license" : [
       "unknown"
    ],
@@ -37,10 +37,11 @@
             "Moo" : "1",
             "URI" : "1",
             "XML::Compile::SOAP" : "0",
+            "XML::Compile::WSDL11" : "0",
             "perl" : "5.010001"
          }
       }
    },
    "release_status" : "stable",
-   "version" : "0.05"
+   "version" : "0.06"
 }
