@@ -6,7 +6,7 @@ use Data::Dumper;
 use File::Spec;
 use LWP::UserAgent;
 use URI;
-
+use POSIX qw/strftime/;
 
 
 use Business::OnlinePayment::IPayment;
@@ -55,7 +55,7 @@ my $response = $ua->post($secbopi->ipayment_cgi_location,
                         cc_checkcode => "",
                         cc_expdate_month => "02",
                         trx_securityhash => $secbopi->trx_securityhash,
-                        cc_expdate_year => "2014" });
+                        cc_expdate_year => next_year() });
 
 # ok($secbopi->debug->request->content, "We can inspect the SOAP request");
 
@@ -132,7 +132,7 @@ ok($res->is_error, "And we have an error");
 
 ok($res->ret_errorcode, "with code " . $res->ret_errorcode);
 
-ok($res->error_info =~ qr/Capture nicht m Not enough funds left \(\d+\) for this capture. 10031/, "Not funds left error ok");
+like $res->error_info,  qr/Not enough funds left \(\d+\) for this capture. 10031/, "Not funds left error ok";
 
 $res = $secbopi->capture("828939234", 500000, "EUR",
                          { shopperId => $shopper_id });
@@ -189,7 +189,7 @@ $response = $ua->post($secbopi->ipayment_cgi_location,
                         cc_checkcode => "",
                         cc_expdate_month => "02",
                         trx_securityhash => $secbopi->trx_securityhash,
-                        cc_expdate_year => "2014" });
+                        cc_expdate_year => next_year() });
 
 $ipayres = $secbopi->get_response_obj($response->header('location'));
 ok($ipayres->is_valid);
@@ -209,7 +209,7 @@ ok($reverse->error_info =~ qr/Transaction already reversed/);
 is_deeply($reverse->errorDetails, {
                                    'retAdditionalMsg' => 'Transaction already reversed',
                                    'retFatalerror' => 0,
-                                   'retErrorMsg' => 'Reverse nicht m',
+                                   'retErrorMsg' => '',
                                    'retErrorcode' => 10032
                                   });
 
@@ -237,7 +237,7 @@ $response = $ua->post($secbopi->ipayment_cgi_location,
                         cc_checkcode => "",
                         cc_expdate_month => "02",
                         trx_securityhash => $secbopi->trx_securityhash,
-                        cc_expdate_year => "2014" });
+                        cc_expdate_year => next_year() });
 
 $ipayres = $secbopi->get_response_obj($response->header('location'));
 ok($ipayres->is_valid);
@@ -257,10 +257,13 @@ print Dumper($res);
 is_deeply($res->errorDetails, {
                                    'retAdditionalMsg' => 'Transaction already partial or completely captured',
                                    'retFatalerror' => 0,
-                                   'retErrorMsg' => 'Reverse nicht m',
+                                   'retErrorMsg' => '',
                                    'retErrorcode' => 10032
                                   });
 
 ok($res->error_info =~ qr/Transaction already partial or completely captured/);
 
 
+sub next_year {
+    my $year = strftime('%Y', localtime(time())) + 1;
+}

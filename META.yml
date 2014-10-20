@@ -25,4 +25,4 @@ requires:
   XML::Compile::SOAP: '0'
   XML::Compile::WSDL11: '0'
   perl: '5.010001'
-version: '0.06'
+version: '0.07'
